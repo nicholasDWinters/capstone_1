@@ -11,10 +11,3 @@ Users will register and be redirected to their user show page, where they will b
 Entering a search term will take them to a page displaying 5-10 youtube videos showing the technique they entered. Users can add these to their 'techniques' list, which will store the video id in the database, to then essentially display their favorite techniques on their individual techniques page. Users can add, edit, or remove a note to/from each of their technique videos. Functionality to remove a video from their 'techniques' list will also be added.
 
 Bootstrap will be used for styling. Axios and javascript will be used to update pages with minimal refreshes.
-
-
-
-
-
-
-
