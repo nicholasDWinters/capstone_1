@@ -16,3 +16,9 @@ class LoginForm(FlaskForm):
 
     username = StringField('Username', validators=[InputRequired(message='Username is required.')])
     password = PasswordField('Password', validators=[Length(min=6, message='Password must be longer than 6 characters.'), InputRequired(message='Please enter password.')])
+
+
+
+class TrainingNoteForm(FlaskForm):
+    '''form to add a training note'''
+    content = TextAreaField('Note', validators=[InputRequired(message='Please enter text for your note.')])

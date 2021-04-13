@@ -8,7 +8,7 @@ import os
 # API key can be obtained from YouTube Data API website, and SECRET KEY is in relation to session; create both of these
 from secrets import API_KEY, SECRET_KEY
 from models import db, connect_db, User, Technique, Training_Note
-from forms import UserAddForm, LoginForm
+from forms import UserAddForm, LoginForm, TrainingNoteForm
 
 CURR_USER_KEY = "curr_user"
 
@@ -112,6 +112,51 @@ def logout():
 def home():
     '''home route'''
     if CURR_USER_KEY in session:
-        return render_template('show.html')
+        return redirect(f'/user/{session[CURR_USER_KEY]}/notes')
     else:
         return render_template('home.html')
+
+
+@app.route('/user/<int:user_id>/notes', methods = ['GET','POST'])
+def add_note(user_id):
+    '''add a training note'''
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    form = TrainingNoteForm()
+    user = User.query.get_or_404(user_id)
+
+    if form.validate_on_submit():
+        try:
+            content = form.content.data
+            note = Training_Note(content = content, user_id = user_id)
+            db.session.add(note)
+            db.session.commit()
+            flash('Added note!', 'success')
+            return redirect('/')
+        except:
+            db.session.rollback()
+            flash('Error adding note!', 'danger')
+            return redirect('/')
+
+    return render_template('show.html', user = user, form = form)
+
+@app.route('/notes/<int:note_id>/delete', methods=['POST'])
+def delete_note(note_id):
+    '''delete a training note from database'''
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    note = Training_Note.query.get_or_404(note_id)
+
+    if note.user_id != g.user.id:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    db.session.delete(note)
+    db.session.commit()
+    flash('Deleted note!', 'success')
+    return redirect('/')
