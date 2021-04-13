@@ -22,3 +22,8 @@ class LoginForm(FlaskForm):
 class TrainingNoteForm(FlaskForm):
     '''form to add a training note'''
     content = TextAreaField('Note', validators=[InputRequired(message='Please enter text for your note.')])
+
+class EditTrainingNoteForm(FlaskForm):
+    '''form to add a training note'''
+    content = TextAreaField('Note', validators=[InputRequired()])
+

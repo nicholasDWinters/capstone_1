@@ -29,7 +29,10 @@
                         <p class="card-text"><small class="text-muted">{{note.date.strftime('%B %d %Y')}}</small></p>
                     </div>
                     <div class="col-2">
-                        <form class="inline" method="POST" action="/notes/{{ note.id }}/delete">
+                        <form class="mb-3" method="POST" action="/notes/{{ note.id }}/edit">
+                            <button class="btn btn-outline-primary">Edit</button>
+                        </form>
+                        <form method="POST" action="/notes/{{ note.id }}/delete">
                             <button class="btn btn-outline-danger">Delete</button>
                         </form>
                     </div>

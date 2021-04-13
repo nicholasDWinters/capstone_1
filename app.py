@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, flash, session, g
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
+from datetime import datetime
 import pdb
 import requests
 import os
@@ -8,7 +9,7 @@ import os
 # API key can be obtained from YouTube Data API website, and SECRET KEY is in relation to session; create both of these
 from secrets import API_KEY, SECRET_KEY
 from models import db, connect_db, User, Technique, Training_Note
-from forms import UserAddForm, LoginForm, TrainingNoteForm
+from forms import UserAddForm, LoginForm, TrainingNoteForm, EditTrainingNoteForm
 
 CURR_USER_KEY = "curr_user"
 
@@ -16,7 +17,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', SECRET_KEY)
 app.config['SQLALCHEMY_DATABASE_URI'] = (os.environ.get('DATABASE_URL','postgresql:///jiu_jitsu_source'))
-app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
@@ -112,13 +113,13 @@ def logout():
 def home():
     '''home route'''
     if CURR_USER_KEY in session:
-        return redirect(f'/user/{session[CURR_USER_KEY]}/notes')
+        return redirect('/user/notes')
     else:
         return render_template('home.html')
 
 
-@app.route('/user/<int:user_id>/notes', methods = ['GET','POST'])
-def add_note(user_id):
+@app.route('/user/notes', methods = ['GET','POST'])
+def add_note():
     '''add a training note'''
 
     if not g.user:
@@ -126,12 +127,12 @@ def add_note(user_id):
         return redirect("/")
 
     form = TrainingNoteForm()
-    user = User.query.get_or_404(user_id)
+    user = User.query.get_or_404(g.user.id)
 
     if form.validate_on_submit():
         try:
             content = form.content.data
-            note = Training_Note(content = content, user_id = user_id)
+            note = Training_Note(content = content, user_id = user.id)
             db.session.add(note)
             db.session.commit()
             flash('Added note!', 'success')
@@ -160,3 +161,38 @@ def delete_note(note_id):
     db.session.commit()
     flash('Deleted note!', 'success')
     return redirect('/')
+
+@app.route('/notes/<int:note_id>/edit', methods=['GET', 'POST'])
+def edit_note(note_id):
+    '''edit a training note'''
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+    note = Training_Note.query.get_or_404(note_id)
+    form = EditTrainingNoteForm(obj = note)
+
+    if form.validate_on_submit():
+        try:
+            note.content = form.content.data
+            note.date = datetime.utcnow()
+            db.session.commit()
+            flash('Edited note!', 'success')
+            return redirect('/')
+        except:
+            db.session.rollback()
+            flash('Error editing note!', 'danger')
+            return redirect('/')
+
+    return render_template('editTrainingNote.html', form = form)
+
+
+@app.route('/user/techniques')
+def my_techniques():
+    '''show user techniques'''
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    user = User.query.get_or_404(g.user.id)
+    
+    return render_template('techniques.html', user = user)
