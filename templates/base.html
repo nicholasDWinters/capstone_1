@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #e3f2fd;">
         <div class="container">
             <a class="navbar-brand" href="/">Jiu Jitsu Source</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -35,6 +35,9 @@
                         <a class="nav-link" href="/">My Notes</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link">|</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/techniques">Search Techniques</a>
                     </li>
                 </ul>
@@ -52,9 +55,9 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid mt-3 ms-5 me-5">
+    <div class="container-fluid mt-3 ms-5 me-5 contentContainer">
         {% for category, message in get_flashed_messages(with_categories=True) %}
-        <div class="alert alert-{{ category }}">{{ message }}</div>
+        <div class="alert alert-{{ category }} flashes">{{ message }}</div>
         {% endfor %}
         {%block content%} {%endblock%}
     </div>

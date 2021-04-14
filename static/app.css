@@ -1,0 +1,31 @@
+.noUnderline {
+    text-decoration: none;
+}
+
+#scrollTechniques {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 70vh;
+    position: relative;
+}
+
+#scrollNotes {
+    overflow-y: scroll;
+    overflow-x: inherit;
+    height: 50vh;
+    position: relative;
+}
+#scrollSubmissions {
+    overflow-y: scroll;
+    overflow-x: inherit;
+    height: 50vh;
+    position: relative;
+}
+
+.contentContainer {
+    padding-top: 70px;
+}
+
+.flashes {
+    width: 80%;
+}

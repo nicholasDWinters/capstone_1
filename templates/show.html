@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-4">
         <h1>{{user.username}} Training Notes</h1>
-        <h4 class="mt-3">Add a Note</h4>
+        <h4 class="mt-5">Add a Note</h4>
         <form method="POST" id="training_note_form" class="mb-3">
             {{ form.hidden_tag() }}
             {% for field in form
@@ -20,73 +20,77 @@
             {% endfor %}
             <button class="btn btn-success">Add Note</button>
         </form>
-        {%for note in notes%}
-        <div class="card mb-2">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-9">
-                        <p class="card-text">{{note.content}}</p>
-                        <p class="card-text"><small class="text-muted">{{note.date.strftime('%B %d %Y')}}</small></p>
+        <div data-bs-spy='scroll' id="scrollNotes" tabindex="0">
+            {%for note in notes%}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9">
+                            <p class="card-text">{{note.content}}</p>
+                            <p class="card-text"><small class="text-muted">{{note.date.strftime('%B %d %Y')}}</small>
+                            </p>
+                        </div>
+                        <div class="col-3">
+                            <form class="mb-3" method="POST" action="/user/notes/{{ note.id }}/edit">
+                                <button class="btn btn-outline-primary">Edit</button>
+                            </form>
+                            <form method="POST" action="/user/notes/{{ note.id }}/delete">
+                                <button class="btn btn-outline-danger">Remove</button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="col-3">
-                        <form class="mb-3" method="POST" action="/user/notes/{{ note.id }}/edit">
-                            <button class="btn btn-outline-primary">Edit</button>
-                        </form>
-                        <form method="POST" action="/user/notes/{{ note.id }}/delete">
-                            <button class="btn btn-outline-danger">Delete</button>
-                        </form>
-                    </div>
+
+
                 </div>
-
-
             </div>
+            {%endfor%}
         </div>
-        {%endfor%}
     </div>
     <div class="col-7 ms-5">
-        <h1 class="mb-3">{{user.username}} Techniques</h1>
+        <h1 class="mb-5">{{user.username}} Techniques</h1>
+        <div data-bs-spy='scroll' id="scrollTechniques" tabindex="0">
+            {%for technique in techniques%}
+            <div class="row">
+                <div class="col-7">
 
-        {%for technique in techniques%}
-        <div class="row">
-            <div class="col-7">
 
+                    <div class="card mb-3 border-light" style="width: 100%;">
+                        <iframe class="card-img-top" width="560" height="315"
+                            src="https://www.youtube.com/embed/{{ technique.video_id }}" title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                        <div class="card-body">
+                            <div class='row'>
+                                <div class='col-9'>
+                                    <h5 class="card-title">{{ technique.channel_title }}</h5>
+                                    <p class="card-text">{{ technique.video_title }}</p>
+                                </div>
+                                <div class='col-3'>
+                                    <form class="mb-3" method="POST" action="/techniques/{{technique.id}}/addNote">
+                                        <button class="btn btn-outline-primary">Edit Note</button>
+                                    </form>
+                                    <form class="mb-3" method="POST" action="/techniques/{{technique.id}}/delete">
+                                        <button class="btn btn-outline-danger">Remove Technique</button>
+                                    </form>
 
-                <div class="card mb-3 border-light" style="width: 100%;">
-                    <iframe class="card-img-top" width="560" height="315"
-                        src="https://www.youtube.com/embed/{{ technique.video_id }}" title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
-                    <div class="card-body">
-                        <div class='row'>
-                            <div class='col-9'>
-                                <h5 class="card-title">{{ technique.channel_title }}</h5>
-                                <p class="card-text">{{ technique.video_title }}</p>
-                            </div>
-                            <div class='col-3'>
-                                <form class="mb-3" method="POST" action="/techniques/{{technique.id}}/addNote">
-                                    <button class="btn btn-success">Edit Note</button>
-                                </form>
-                                <form class="mb-3" method="POST" action="/techniques/{{technique.id}}/delete">
-                                    <button class="btn btn-outline-danger">Remove Technique</button>
-                                </form>
-
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-5">
-                <div class="card mb-3 border-light">
-                    <div class="card-body">
-                        <h4 class="card-title">Technique Note:</h4>
-                        <p class="card-text">{{technique.video_note}}</p>
+                <div class="col-5">
+                    <div class="card mb-3 border-light">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Technique Note:</h5>
+                            <p class="card-text">{{technique.video_note}}</p>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
+            {%endfor%}
         </div>
-        {%endfor%}
     </div>
 </div>
 

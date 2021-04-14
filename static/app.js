@@ -5,8 +5,15 @@ async function processForm(evt) {
     handleResponse(res, search);
 }
 
+async function clickLink(evt) {
+    evt.preventDefault();
+    let search = evt.target.innerText;
+    const res = await axios.post('/api/search', params = { "search": search })
+    handleResponse(res, search);
+}
+
 function handleResponse(resp, term) {
-    console.log(resp.data.items);
+
     $('#videosDiv').children().remove();
     $('#searchTermHeading').text(`${term} videos`).addClass('mb-3 mt-3');
     let items = resp.data.items;
@@ -15,7 +22,7 @@ function handleResponse(resp, term) {
         let channelTitle = item.snippet.channelTitle;
         let videoTitle = item.snippet.title;
         $('#videosDiv').append(`<div id=${videoId}></div>`);
-        $(`#${videoId}`).append(`<div class="card mb-3 border-light" style="width: 75%;">
+        $(`#${videoId}`).append(`<div class="card mb-3 border-light" style="width: 90%;">
         <iframe class="card-img-top" width="560" height="315" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player"
                 frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
@@ -40,3 +47,5 @@ function handleResponse(resp, term) {
 }
 
 $('#searchForm').on('submit', processForm);
+
+$('.techLink').on('click', clickLink);

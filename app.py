@@ -9,6 +9,7 @@ import os
 
 # API key can be obtained from YouTube Data API website, and SECRET KEY is in relation to session; create both of these
 from secrets import API_KEY, SECRET_KEY
+from techniques import techDict
 from models import db, connect_db, User, Technique, Training_Note
 from forms import UserAddForm, LoginForm, TrainingNoteForm, EditTrainingNoteForm, VideoNoteForm
 
@@ -206,7 +207,7 @@ def my_techniques():
 
     user = User.query.get_or_404(g.user.id)
     
-    return render_template('techniques.html', user = user)
+    return render_template('techniques.html', user = user, techDict = techDict)
 
 @app.route('/techniques/<videoId>/<videoTitle>/<channelTitle>', methods=['POST'])
 def add_technique(videoId, videoTitle, channelTitle):
