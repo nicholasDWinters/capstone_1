@@ -68,7 +68,7 @@ class Training_Note(db.Model):
     content = db.Column(db.Text, nullable = False)
     date = db.Column(db.DateTime, nullable = False, default = datetime.utcnow())
 
-    user = db.relationship('User')
+    
 
 
 class Technique(db.Model):
@@ -82,4 +82,4 @@ class Technique(db.Model):
     channel_title = db.Column(db.Text, nullable = False)
     video_note = db.Column(db.Text, nullable = True)
 
-    user = db.relationship('User')
+    

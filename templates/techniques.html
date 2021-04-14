@@ -1,5 +1,19 @@
 {%extends 'base.html'%}
 
 {%block content%}
-<h1>{{user.username}} Techniques</h1>
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <h1>Search for Techniques</h1>
+        <form class="d-flex" id="searchForm">
+            <input class="form-control me-2" type="search" placeholder="Search Techniques" aria-label="Search"
+                id="search">
+            <button class="btn btn-outline-primary" type="submit">Search</button>
+        </form>
+        <h2 id="searchTermHeading" class="text-capitalize"></h2>
+        <div id="videosDiv"></div>
+    </div>
+    <div class="col-3"></div>
+</div>
+
 {%endblock%}

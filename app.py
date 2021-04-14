@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, flash, session, g
+from flask import Flask, render_template, request, redirect, flash, session, g, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 from datetime import datetime
+import json
 import pdb
 import requests
 import os
@@ -117,6 +118,11 @@ def home():
     else:
         return render_template('home.html')
 
+@app.route('/user')
+def go_to_notes():
+    '''redirect to notes'''
+    return redirect('/')
+
 
 @app.route('/user/notes', methods = ['GET','POST'])
 def add_note():
@@ -128,7 +134,7 @@ def add_note():
 
     form = TrainingNoteForm()
     user = User.query.get_or_404(g.user.id)
-
+    
     if form.validate_on_submit():
         try:
             content = form.content.data
@@ -141,10 +147,10 @@ def add_note():
             db.session.rollback()
             flash('Error adding note!', 'danger')
             return redirect('/')
-
+   
     return render_template('show.html', user = user, form = form)
 
-@app.route('/notes/<int:note_id>/delete', methods=['POST'])
+@app.route('/user/notes/<int:note_id>/delete', methods=['POST'])
 def delete_note(note_id):
     '''delete a training note from database'''
     if not g.user:
@@ -162,7 +168,7 @@ def delete_note(note_id):
     flash('Deleted note!', 'success')
     return redirect('/')
 
-@app.route('/notes/<int:note_id>/edit', methods=['GET', 'POST'])
+@app.route('/user/notes/<int:note_id>/edit', methods=['GET', 'POST'])
 def edit_note(note_id):
     '''edit a training note'''
     if not g.user:
@@ -186,7 +192,9 @@ def edit_note(note_id):
     return render_template('editTrainingNote.html', form = form)
 
 
-@app.route('/user/techniques')
+
+
+@app.route('/techniques')
 def my_techniques():
     '''show user techniques'''
     if not g.user:
@@ -196,3 +204,48 @@ def my_techniques():
     user = User.query.get_or_404(g.user.id)
     
     return render_template('techniques.html', user = user)
+
+@app.route('/techniques/<videoId>/<videoTitle>/<channelTitle>', methods=['POST'])
+def add_technique(videoId, videoTitle, channelTitle):
+    '''add technique to database'''
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    user = User.query.get_or_404(g.user.id)
+
+    try:
+        technique = Technique(user_id = user.id, video_id = videoId, video_title = videoTitle, channel_title = channelTitle)
+        db.session.add(technique)
+        db.session.commit()
+        flash('Added technique!', 'success')
+        return redirect('/')
+    except:
+        flash('Unable to add technique!', 'danger')
+        return redirect('/')
+    
+
+
+
+# **********************************************************
+# API ROUTE
+
+@app.route('/api/search', methods=['POST'])
+def search_technique():
+    '''search for a technique, make a call to Youtube API'''
+    errors = {}
+
+    search = request.json['search']
+
+    if not search:
+        errors['search'] = 'Please enter a search term!'
+
+    if errors:
+        return {"errors": errors}
+
+    search.replace(' ', '%20')
+
+    res = requests.get(f'https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=jiu%20jitsu%20{search}&key={API_KEY}')
+
+    
+    return res.json()
