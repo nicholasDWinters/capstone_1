@@ -27,3 +27,6 @@ class EditTrainingNoteForm(FlaskForm):
     '''form to add a training note'''
     content = TextAreaField('Note', validators=[InputRequired()])
 
+class VideoNoteForm(FlaskForm):
+    '''form to add a video note'''
+    video_note = TextAreaField('Note', validators=[InputRequired(message='Please enter text for your note.')])

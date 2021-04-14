@@ -10,7 +10,7 @@ import os
 # API key can be obtained from YouTube Data API website, and SECRET KEY is in relation to session; create both of these
 from secrets import API_KEY, SECRET_KEY
 from models import db, connect_db, User, Technique, Training_Note
-from forms import UserAddForm, LoginForm, TrainingNoteForm, EditTrainingNoteForm
+from forms import UserAddForm, LoginForm, TrainingNoteForm, EditTrainingNoteForm, VideoNoteForm
 
 CURR_USER_KEY = "curr_user"
 
@@ -134,7 +134,10 @@ def add_note():
 
     form = TrainingNoteForm()
     user = User.query.get_or_404(g.user.id)
-    
+    techniques = Technique.query.filter(Technique.user_id == user.id).all()
+    notes = Training_Note.query.filter(Training_Note.user_id == user.id).all()
+    techniques.reverse()
+    notes.reverse()
     if form.validate_on_submit():
         try:
             content = form.content.data
@@ -148,7 +151,7 @@ def add_note():
             flash('Error adding note!', 'danger')
             return redirect('/')
    
-    return render_template('show.html', user = user, form = form)
+    return render_template('show.html', user = user, form = form, techniques = techniques, notes = notes)
 
 @app.route('/user/notes/<int:note_id>/delete', methods=['POST'])
 def delete_note(note_id):
@@ -225,7 +228,45 @@ def add_technique(videoId, videoTitle, channelTitle):
         return redirect('/')
     
 
+@app.route('/techniques/<int:tech_id>/addNote', methods = ['GET', 'POST'])
+def add_video_note(tech_id):
+    '''add a note to a technique video'''
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
 
+    technique = Technique.query.get_or_404(tech_id)
+    form = VideoNoteForm(obj = technique)
+
+    if form.validate_on_submit():
+        try:
+            technique.video_note = form.video_note.data
+            db.session.commit()
+            flash('Edited note!', 'success')
+            return redirect('/')
+        except:
+            db.session.rollback()
+            flash('Error editing note!', 'danger')
+            return redirect('/')
+    return render_template('addVideoNote.html', form = form)
+
+@app.route('/techniques/<int:technique_id>/delete', methods=['POST'])
+def delete_technique(technique_id):
+    '''delete a technique from database'''
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    technique = Technique.query.get_or_404(technique_id)
+
+    if technique.user_id != g.user.id:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    db.session.delete(technique)
+    db.session.commit()
+    flash('Deleted technique!', 'success')
+    return redirect('/')
 
 # **********************************************************
 # API ROUTE

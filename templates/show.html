@@ -20,7 +20,7 @@
             {% endfor %}
             <button class="btn btn-success">Add Note</button>
         </form>
-        {%for note in user.training_notes%}
+        {%for note in notes%}
         <div class="card mb-2">
             <div class="card-body">
                 <div class="row">
@@ -46,7 +46,7 @@
     <div class="col-7 ms-5">
         <h1 class="mb-3">{{user.username}} Techniques</h1>
 
-        {%for technique in user.techniques%}
+        {%for technique in techniques%}
         <div class="row">
             <div class="col-7">
 
@@ -65,7 +65,10 @@
                             </div>
                             <div class='col-3'>
                                 <form class="mb-3" method="POST" action="/techniques/{{technique.id}}/addNote">
-                                    <button class="btn btn-success">Add Video Note</button>
+                                    <button class="btn btn-success">Edit Note</button>
+                                </form>
+                                <form class="mb-3" method="POST" action="/techniques/{{technique.id}}/delete">
+                                    <button class="btn btn-outline-danger">Remove Technique</button>
                                 </form>
 
                             </div>
@@ -74,7 +77,13 @@
                 </div>
             </div>
             <div class="col-5">
-                <p>{{technique.video_note}}</p>
+                <div class="card mb-3 border-light">
+                    <div class="card-body">
+                        <h4 class="card-title">Technique Note:</h4>
+                        <p class="card-text">{{technique.video_note}}</p>
+                    </div>
+                </div>
+
             </div>
         </div>
         {%endfor%}
