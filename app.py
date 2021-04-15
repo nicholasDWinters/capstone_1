@@ -145,7 +145,7 @@ def add_note():
             note = Training_Note(content = content, user_id = user.id)
             db.session.add(note)
             db.session.commit()
-            flash('Added note!', 'success')
+            flash('Added note!', 'secondary')
             return redirect('/')
         except:
             db.session.rollback()
@@ -169,7 +169,7 @@ def delete_note(note_id):
 
     db.session.delete(note)
     db.session.commit()
-    flash('Deleted note!', 'success')
+    flash('Deleted note!', 'secondary')
     return redirect('/')
 
 @app.route('/user/notes/<int:note_id>/edit', methods=['GET', 'POST'])
@@ -186,7 +186,7 @@ def edit_note(note_id):
             note.content = form.content.data
             note.date = datetime.utcnow()
             db.session.commit()
-            flash('Edited note!', 'success')
+            flash('Edited note!', 'secondary')
             return redirect('/')
         except:
             db.session.rollback()
@@ -223,7 +223,7 @@ def add_technique(videoId, videoTitle, channelTitle):
         technique = Technique(user_id = user.id, video_id = videoId, video_title = videoTitle, channel_title = channelTitle)
         db.session.add(technique)
         db.session.commit()
-        flash('Added technique!', 'success')
+        flash('Added technique!', 'secondary')
         return redirect('/')
     except:
         flash('Unable to add technique!', 'danger')
@@ -245,7 +245,7 @@ def delete_technique(technique_id):
 
     db.session.delete(technique)
     db.session.commit()
-    flash('Deleted technique!', 'success')
+    flash('Deleted technique!', 'secondary')
     return redirect('/')
     
 
@@ -263,7 +263,7 @@ def add_video_note(tech_id):
         try:
             technique.video_note = form.video_note.data
             db.session.commit()
-            flash('Edited note!', 'success')
+            flash('Edited note!', 'secondary')
             return redirect('/')
         except:
             db.session.rollback()

@@ -10,12 +10,12 @@
             {% for field in form
             if field.widget.input_type != 'hidden' %}
             <p>
-                {{ field.label(class_='form-label') }}
+
                 {{ field(class_='form-control') }}
 
             </p>
             {% endfor %}
-            <button class="btn btn-success">Edit Note</button>
+            <button class="btn btn-danger btn-lg homeBtn">Edit Note</button>
         </form>
     </div>
 </div>

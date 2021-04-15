@@ -45,7 +45,7 @@ function handleResponse(resp, term) {
             </div>
             <div class='col-3'>
             <form class="mb-3" method="POST" action="/techniques/${videoId}/${videoTitle}/${channelTitle}">
-                            <button class="btn btn-success">Add to My Techniques</button>
+                            <button class="btn btn-dark">Add to My Techniques</button>
                         </form>
                         
             </div>

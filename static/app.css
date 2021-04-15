@@ -1,5 +1,10 @@
-.noUnderline {
+.styledLink {
     text-decoration: none;
+    color: black;
+}
+
+.styledLink:hover {
+    color: red;
 }
 
 #scrollTechniques {
@@ -57,4 +62,13 @@
     padding: 0;
     height: 100%;
     width: 100%;
+}
+
+:root {
+    --bs-primary: black;
+}
+
+
+.navPills {
+    background-color: var(--bs-primary);
 }

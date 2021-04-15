@@ -7,17 +7,19 @@
         <h2 class="mb-4">Choose a Technique</h2>
         <div class="d-flex align-items-start">
             <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <button class="nav-link active" id="v-pills-guards-tab" data-bs-toggle="pill"
+                <button class="nav-link active navPills" id="v-pills-guards-tab" data-bs-toggle="pill"
                     data-bs-target="#v-pills-guards" type="button" role="tab" aria-controls="v-pills-guards"
                     aria-selected="true">Guards</button>
-                <button class="nav-link" id="v-pills-sweeps-tab" data-bs-toggle="pill" data-bs-target="#v-pills-sweeps"
-                    type="button" role="tab" aria-controls="v-pills-sweeps" aria-selected="false">Sweeps</button>
-                <button class="nav-link" id="v-pills-passes-tab" data-bs-toggle="pill" data-bs-target="#v-pills-passes"
-                    type="button" role="tab" aria-controls="v-pills-passes" aria-selected="false">Passes</button>
-                <button class="nav-link" id="v-pills-submissions-tab" data-bs-toggle="pill"
+                <button class="nav-link navPills" id="v-pills-sweeps-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-sweeps" type="button" role="tab" aria-controls="v-pills-sweeps"
+                    aria-selected="false">Sweeps</button>
+                <button class="nav-link navPills" id="v-pills-passes-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-passes" type="button" role="tab" aria-controls="v-pills-passes"
+                    aria-selected="false">Passes</button>
+                <button class="nav-link navPills" id="v-pills-submissions-tab" data-bs-toggle="pill"
                     data-bs-target="#v-pills-submissions" type="button" role="tab" aria-controls="v-pills-submissions"
                     aria-selected="false">Submissions</button>
-                <button class="nav-link" id="v-pills-takedowns-tab" data-bs-toggle="pill"
+                <button class="nav-link navPills" id="v-pills-takedowns-tab" data-bs-toggle="pill"
                     data-bs-target="#v-pills-takedowns" type="button" role="tab" aria-controls="v-pills-takedowns"
                     aria-selected="false">Takedowns</button>
             </div>
@@ -25,30 +27,30 @@
                 <div class="tab-pane fade show active" id="v-pills-guards" role="tabpanel"
                     aria-labelledby="v-pills-guards-tab">
                     {%for guard in techDict.guards%}
-                    <p class="text-capitalize techLink"><a class="noUnderline" href="">{{guard}}</a></p>
+                    <p class="text-capitalize techLink"><a class="styledLink" href="">{{guard}}</a></p>
                     {%endfor%}
                 </div>
                 <div class="tab-pane fade" id="v-pills-sweeps" role="tabpanel" aria-labelledby="v-pills-sweeps-tab">
                     {%for sweep in techDict.sweeps%}
-                    <p class="text-capitalize techLink"><a class="noUnderline" href="">{{sweep}}</a></p>
+                    <p class="text-capitalize techLink"><a class="styledLink" href="">{{sweep}}</a></p>
                     {%endfor%}
                 </div>
                 <div class="tab-pane fade" id="v-pills-passes" role="tabpanel" aria-labelledby="v-pills-passes-tab">
                     {%for pass in techDict.passes%}
-                    <p class="text-capitalize techLink"><a class="noUnderline" href="">{{pass}}</a></p>
+                    <p class="text-capitalize techLink"><a class="styledLink" href="">{{pass}}</a></p>
                     {%endfor%}
                 </div>
                 <div class="tab-pane fade" id="v-pills-submissions" role="tabpanel"
                     aria-labelledby="v-pills-submissions-tab">
                     <div data-bs-spy='scroll' id="scrollSubmissions" tabindex="0">
                         {%for submission in techDict.submissions%}
-                        <p class="text-capitalize techLink"><a class="noUnderline" href="">{{submission}}</a></p>
+                        <p class="text-capitalize techLink"><a class="styledLink" href="">{{submission}}</a></p>
                         {%endfor%}
                     </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-takedowns" role="tabpanel"
                     aria-labelledby="v-pills-takedowns-tab">{%for takedown in techDict.takedowns%}
-                    <p class="text-capitalize techLink"><a class="noUnderline" href="">{{takedown}}</a></p>
+                    <p class="text-capitalize techLink"><a class="styledLink" href="">{{takedown}}</a></p>
                     {%endfor%}
                 </div>
 
@@ -60,7 +62,7 @@
         <form class="d-flex" id="searchForm">
             <input class="form-control me-2" type="search" placeholder="Search Techniques" aria-label="Search"
                 id="search">
-            <button class="btn btn-outline-primary" type="submit">Search</button>
+            <button class="btn btn-danger btn-lg homeBtn" type="submit">Search</button>
         </form>
         <div id="errors"></div>
         <h3 id="searchTermHeading" class="text-capitalize"></h3>

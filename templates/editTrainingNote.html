@@ -3,19 +3,19 @@
 {%block content%}
 
 <div class="row">
-    <div class="col-6">
+    <div class="col-5">
         <h4 class="mt-3">Edit Note</h4>
         <form method="POST" id="training_note_form" class="mb-3">
             {{ form.hidden_tag() }}
             {% for field in form
             if field.widget.input_type != 'hidden' %}
             <p>
-                {{ field.label(class_='form-label') }}
+
                 {{ field(class_='form-control') }}
 
             </p>
             {% endfor %}
-            <button class="btn btn-success">Edit Note</button>
+            <button class="btn btn-danger btn-lg homeBtn">Edit Note</button>
         </form>
     </div>
 </div>

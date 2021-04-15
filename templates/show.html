@@ -5,20 +5,20 @@
 <div class="row">
     <div class="col-4">
         <h1>{{user.username}} Training Notes</h1>
-        <h4 class="mt-5">Add a Note</h4>
+        <h4 class="mt-5">How was your training today?</h4>
         <form method="POST" id="training_note_form" class="mb-3">
             {{ form.hidden_tag() }}
             {% for field in form
             if field.widget.input_type != 'hidden' %}
             <p>
-                {{ field.label(class_='form-label') }}
+
                 {{ field(class_='form-control') }}
                 {% for error in field.errors %}
                 <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             </p>
             {% endfor %}
-            <button class="btn btn-success">Add Note</button>
+            <button class="btn btn-danger btn-lg homeBtn mb-3">Add Note</button>
         </form>
         <div data-bs-spy='scroll' id="scrollNotes" tabindex="0">
             {%for note in notes%}
@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-3">
                             <form class="mb-3" method="POST" action="/user/notes/{{ note.id }}/edit">
-                                <button class="btn btn-outline-primary">Edit</button>
+                                <button class="btn btn-outline-dark">Edit</button>
                             </form>
                             <form method="POST" action="/user/notes/{{ note.id }}/delete">
                                 <button class="btn btn-outline-danger">Remove</button>
@@ -69,7 +69,7 @@
                                 </div>
                                 <div class='col-3'>
                                     <form class="mb-3" method="POST" action="/techniques/{{technique.id}}/addNote">
-                                        <button class="btn btn-outline-primary">Edit Note</button>
+                                        <button class="btn btn-outline-dark">Edit Note</button>
                                     </form>
                                     <form class="mb-3" method="POST" action="/techniques/{{technique.id}}/delete">
                                         <button class="btn btn-outline-danger">Remove Technique</button>
