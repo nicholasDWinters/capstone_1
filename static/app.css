@@ -5,20 +5,20 @@
 #scrollTechniques {
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 70vh;
+    height: 65vh;
     position: relative;
 }
 
 #scrollNotes {
     overflow-y: scroll;
     overflow-x: inherit;
-    height: 50vh;
+    height: 45vh;
     position: relative;
 }
 #scrollSubmissions {
     overflow-y: scroll;
     overflow-x: inherit;
-    height: 50vh;
+    height: 70vh;
     position: relative;
 }
 
@@ -28,4 +28,30 @@
 
 .flashes {
     width: 80%;
+}
+
+.homeBtn {
+    width: 400px;
+}
+
+
+
+.homePageDiv {    
+    content: "";
+    background-image: url('https://images.unsplash.com/photo-1549824506-bfeba88865d6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: 100% 100%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100vh;
+}
+
+.homeBody {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
 }

@@ -13,16 +13,27 @@ async function clickLink(evt) {
 }
 
 function handleResponse(resp, term) {
+    if (resp.data.errors) {
+        let errors = resp.data.errors;
+        let keys = Object.keys(errors);
+        let values = Object.values(errors);
 
-    $('#videosDiv').children().remove();
-    $('#searchTermHeading').text(`${term} videos`).addClass('mb-3 mt-3');
-    let items = resp.data.items;
-    items.forEach(function (item) {
-        let videoId = item.id.videoId;
-        let channelTitle = item.snippet.channelTitle;
-        let videoTitle = item.snippet.title;
-        $('#videosDiv').append(`<div id=${videoId}></div>`);
-        $(`#${videoId}`).append(`<div class="card mb-3 border-light" style="width: 90%;">
+        for (let i = 0; i < keys.length; i++) {
+            let parent = $(`#errors`);
+            parent.text(`${values[i]}`).css('color', 'red');
+        }
+    } else {
+
+        $('#errors').text('');
+        $('#videosDiv').children().remove();
+        $('#searchTermHeading').text(`${term} videos`).addClass('mb-3 mt-3');
+        let items = resp.data.items;
+        items.forEach(function (item) {
+            let videoId = item.id.videoId;
+            let channelTitle = item.snippet.channelTitle;
+            let videoTitle = item.snippet.title;
+            $('#videosDiv').append(`<div id=${videoId}></div>`);
+            $(`#${videoId}`).append(`<div class="card mb-3 border-light" style="width: 90%;">
         <iframe class="card-img-top" width="560" height="315" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player"
                 frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
@@ -42,8 +53,8 @@ function handleResponse(resp, term) {
           </div>
         </div>`)
 
-    })
-
+        })
+    }
 }
 
 $('#searchForm').on('submit', processForm);
