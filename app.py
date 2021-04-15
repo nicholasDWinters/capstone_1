@@ -195,12 +195,13 @@ def edit_note(note_id):
 
     return render_template('editTrainingNote.html', form = form)
 
-
+# ****************************************
+# ROUTES FOR SHOWING TECHNIQUES, ADDING OR DELETING TECHNIQUES, ADDING TECHNIQUE NOTES
 
 
 @app.route('/techniques')
-def my_techniques():
-    '''show user techniques'''
+def get_techniques():
+    '''show the techniques page'''
     if not g.user:
         flash("Access unauthorized.", "danger")
         return redirect("/")
@@ -227,11 +228,30 @@ def add_technique(videoId, videoTitle, channelTitle):
     except:
         flash('Unable to add technique!', 'danger')
         return redirect('/')
+
+
+@app.route('/techniques/<int:technique_id>/delete', methods=['POST'])
+def delete_technique(technique_id):
+    '''delete a technique from database'''
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    technique = Technique.query.get_or_404(technique_id)
+
+    if technique.user_id != g.user.id:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    db.session.delete(technique)
+    db.session.commit()
+    flash('Deleted technique!', 'success')
+    return redirect('/')
     
 
 @app.route('/techniques/<int:tech_id>/addNote', methods = ['GET', 'POST'])
 def add_video_note(tech_id):
-    '''add a note to a technique video'''
+    '''add or edit a note to a technique video'''
     if not g.user:
         flash("Access unauthorized.", "danger")
         return redirect("/")
@@ -251,23 +271,7 @@ def add_video_note(tech_id):
             return redirect('/')
     return render_template('addVideoNote.html', form = form)
 
-@app.route('/techniques/<int:technique_id>/delete', methods=['POST'])
-def delete_technique(technique_id):
-    '''delete a technique from database'''
-    if not g.user:
-        flash("Access unauthorized.", "danger")
-        return redirect("/")
 
-    technique = Technique.query.get_or_404(technique_id)
-
-    if technique.user_id != g.user.id:
-        flash("Access unauthorized.", "danger")
-        return redirect("/")
-
-    db.session.delete(technique)
-    db.session.commit()
-    flash('Deleted technique!', 'success')
-    return redirect('/')
 
 # **********************************************************
 # API ROUTE
