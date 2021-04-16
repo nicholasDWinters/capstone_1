@@ -8,5 +8,6 @@
     ],
     "python.testing.pytestEnabled": false,
     "python.testing.nosetestsEnabled": false,
-    "python.testing.unittestEnabled": true
+    "python.testing.unittestEnabled": true,
+    "python.pythonPath": "c:\\Users\\progo\\OneDrive\\Desktop\\SpringBoard\\Capstone1\\capstone1\\venv\\Scripts\\python.exe"
 }
