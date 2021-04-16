@@ -34,7 +34,9 @@ function handleResponse(resp, term) {
             let videoId = item.id.videoId;
             let channelTitle = item.snippet.channelTitle;
             let videoTitle = item.snippet.title;
-
+            console.log(videoTitle)
+            videoTitle = videoTitle.replace('/', '-');
+            console.log(videoTitle);
             $('#scrollTechniques').append(`<div id=${videoId}></div>`);
             $(`#${videoId}`).append(`<div class="card mb-3 border-light" style="width: 90%;">
         <iframe class="card-img-top" width="560" height="315" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player"
@@ -47,6 +49,7 @@ function handleResponse(resp, term) {
             <p class="card-text">${videoTitle}</p>
             </div>
             <div class='col-3'>
+            
             <form class="mb-3" method="POST" action="/techniques/${videoId}/${videoTitle}/${channelTitle}">
                             <button class="btn btn-primary">Add to My Techniques</button>
                         </form>

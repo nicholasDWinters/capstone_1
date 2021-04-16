@@ -19,7 +19,7 @@
 #scrollNotes {
     overflow-y: scroll;
     overflow-x: inherit;
-    height: 45vh;
+    height: 40vh;
     position: relative;
 }
 #scrollSubmissions {

@@ -26,9 +26,11 @@
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-guards" role="tabpanel"
                     aria-labelledby="v-pills-guards-tab">
-                    {%for guard in techDict.guards%}
-                    <p class="text-capitalize techLink"><a class="styledLink" href="">{{guard}}</a></p>
-                    {%endfor%}
+                    <div data-bs-spy='scroll' id="scrollSubmissions" tabindex="0">
+                        {%for guard in techDict.guards%}
+                        <p class="text-capitalize techLink"><a class="styledLink" href="">{{guard}}</a></p>
+                        {%endfor%}
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-sweeps" role="tabpanel" aria-labelledby="v-pills-sweeps-tab">
                     {%for sweep in techDict.sweeps%}
