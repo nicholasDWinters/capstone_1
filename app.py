@@ -17,6 +17,7 @@ CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
+app.config['API_KEY'] = os.environ.get('API_KEY', API_KEY)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', SECRET_KEY)
 app.config['SQLALCHEMY_DATABASE_URI'] = (os.environ.get('DATABASE_URL','postgresql:///jiu_jitsu_source'))
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
