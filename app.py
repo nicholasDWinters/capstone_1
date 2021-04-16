@@ -94,7 +94,7 @@ def login():
 
         if user:
             do_login(user)
-            flash(f"Hello, {user.username}!", "success")
+            flash(f"Hello, {user.username}!", "secondary")
             return redirect("/")
 
         flash("Invalid credentials.", 'danger')
@@ -106,8 +106,8 @@ def login():
 def logout():
     """Handle logout of user."""
     do_logout()
-    flash("Goodbye!", "success")
-    return redirect ('/login')
+    
+    return redirect ('/')
     
 
 
@@ -130,7 +130,6 @@ def add_note():
     '''add a training note'''
 
     if not g.user:
-        flash("Access unauthorized.", "danger")
         return redirect("/")
 
     form = TrainingNoteForm()
@@ -158,7 +157,6 @@ def add_note():
 def delete_note(note_id):
     '''delete a training note from database'''
     if not g.user:
-        flash("Access unauthorized.", "danger")
         return redirect("/")
 
     note = Training_Note.query.get_or_404(note_id)
@@ -176,7 +174,6 @@ def delete_note(note_id):
 def edit_note(note_id):
     '''edit a training note'''
     if not g.user:
-        flash("Access unauthorized.", "danger")
         return redirect("/")
     note = Training_Note.query.get_or_404(note_id)
     form = EditTrainingNoteForm(obj = note)
@@ -203,7 +200,6 @@ def edit_note(note_id):
 def get_techniques():
     '''show the techniques page'''
     if not g.user:
-        flash("Access unauthorized.", "danger")
         return redirect("/")
 
     user = User.query.get_or_404(g.user.id)
@@ -214,7 +210,6 @@ def get_techniques():
 def add_technique(videoId, videoTitle, channelTitle):
     '''add technique to database'''
     if not g.user:
-        flash("Access unauthorized.", "danger")
         return redirect("/")
 
     user = User.query.get_or_404(g.user.id)
@@ -234,7 +229,6 @@ def add_technique(videoId, videoTitle, channelTitle):
 def delete_technique(technique_id):
     '''delete a technique from database'''
     if not g.user:
-        flash("Access unauthorized.", "danger")
         return redirect("/")
 
     technique = Technique.query.get_or_404(technique_id)
@@ -253,7 +247,6 @@ def delete_technique(technique_id):
 def add_video_note(tech_id):
     '''add or edit a note to a technique video'''
     if not g.user:
-        flash("Access unauthorized.", "danger")
         return redirect("/")
 
     technique = Technique.query.get_or_404(tech_id)

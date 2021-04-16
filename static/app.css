@@ -4,10 +4,12 @@
 }
 
 .styledLink:hover {
-    color: red;
+    font-size: 1.2em;
+    
+    color:blue;
 }
 
-#scrollTechniques {
+#scrollShowTechniques {
     overflow-y: scroll;
     overflow-x: hidden;
     height: 65vh;
@@ -64,11 +66,17 @@
     width: 100%;
 }
 
-:root {
-    --bs-primary: black;
+.editWidget {
+    height: 200px;
 }
 
-
-.navPills {
-    background-color: var(--bs-primary);
+.bjjImg {
+    max-height: 800px;
+    opacity: 0.75;
 }
+
+.navbarTopLink {
+    font-size: 1.2em;
+   
+}
+

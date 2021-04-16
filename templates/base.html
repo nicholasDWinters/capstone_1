@@ -15,7 +15,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #181818;">
         <div class="container">
-            <a class="navbar-brand" href="/">Jiu Jitsu Source</a>
+            <a class="navbar-brand h1 fs-3" href="/">Jiu Jitsu Source</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -26,25 +26,24 @@
 
                     {%if not g.user%}
                     <li class="nav-item">
-                        <a class="nav-link" href="/signup">Sign Up</a>
+                        <a class="nav-link navbarTopLink ms-3 me-3" href="/signup">Sign Up</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Log In</a>
+                        <a class="nav-link navbarTopLink ms-3" href="/login">Log In</a>
                     </li>
                     {%else%}
                     <li class="nav-item">
-                        <a class="nav-link" href="/">My Notes</a>
+                        <a class="nav-link navbarTopLink ms-3 me-3" href="/">My Notes</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link">|</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/techniques">Search Techniques</a>
+                        <a class="nav-link navbarTopLink ms-3" href="/techniques">Search Techniques</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav mb-2 me-5 mb-lg-0">
                     <li class="nav-item">
-                        <a href="/logout" class="nav-link">Log Out</a>
+                        <a href="/logout" class="nav-link navbarTopLink ms-3">Log Out</a>
                     </li>
                 </ul>
 

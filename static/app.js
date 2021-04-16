@@ -27,12 +27,15 @@ function handleResponse(resp, term) {
         $('#errors').text('');
         $('#videosDiv').children().remove();
         $('#searchTermHeading').text(`${term} videos`).addClass('mb-3 mt-3');
+        $('#videosDiv').append(`<div data-bs-spy='scroll' id="scrollTechniques" tabindex="0"></div>`);
+        $('#scrollTechniques').css("overflow-y", "scroll").css("overflow-x", "hidden").css("height", "65vh").css("position", "relative");
         let items = resp.data.items;
         items.forEach(function (item) {
             let videoId = item.id.videoId;
             let channelTitle = item.snippet.channelTitle;
             let videoTitle = item.snippet.title;
-            $('#videosDiv').append(`<div id=${videoId}></div>`);
+
+            $('#scrollTechniques').append(`<div id=${videoId}></div>`);
             $(`#${videoId}`).append(`<div class="card mb-3 border-light" style="width: 90%;">
         <iframe class="card-img-top" width="560" height="315" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player"
                 frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -45,7 +48,7 @@ function handleResponse(resp, term) {
             </div>
             <div class='col-3'>
             <form class="mb-3" method="POST" action="/techniques/${videoId}/${videoTitle}/${channelTitle}">
-                            <button class="btn btn-dark">Add to My Techniques</button>
+                            <button class="btn btn-primary">Add to My Techniques</button>
                         </form>
                         
             </div>

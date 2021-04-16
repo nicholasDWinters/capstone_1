@@ -58,7 +58,7 @@ class RoutesTestCase(TestCase):
             resp = c.post('/user/notes', data={"content": "note content", "user_id": 1}, follow_redirects=True)
             html = resp.get_data(as_text=True)
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('<h1 class="display-1">Jiu Jitsu Source</h1>', html)
+            self.assertIn('<h1 class="display-4 text-uppercase fw-bold">Jiu Jitsu Source</h1>', html)
 
 
     def test_User_add_training_note(self):
@@ -84,7 +84,7 @@ class RoutesTestCase(TestCase):
             resp = c.post('/user/notes/1/delete', follow_redirects=True)
             html = resp.get_data(as_text=True)
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('<h1 class="display-1">Jiu Jitsu Source</h1>', html)
+            self.assertIn('<h1 class="display-4 text-uppercase fw-bold">Jiu Jitsu Source</h1>', html)
 
     def test_User_delete_training_note(self):
         '''can a logged in user delete a training note?'''
@@ -97,7 +97,7 @@ class RoutesTestCase(TestCase):
         newResp = c.post(f'/user/notes/{note.id}/delete', follow_redirects=True)
         html = newResp.get_data(as_text=True)
         self.assertEqual(newResp.status_code, 200)
-        self.assertIn('<div class="alert alert-success flashes">Deleted note!</div>', html)
+        self.assertIn('<div class="alert alert-secondary flashes">Deleted note!</div>', html)
 
     def test_nonUser_edit_training_note(self):
         '''can a non logged in user see the edit note form?'''
@@ -108,7 +108,7 @@ class RoutesTestCase(TestCase):
         resp = self.client.get('/user/notes/1/edit', follow_redirects=True)
         html = resp.get_data(as_text=True)
         self.assertEqual(resp.status_code, 200)
-        self.assertIn('<h1 class="display-1">Jiu Jitsu Source</h1>', html)
+        self.assertIn('<h1 class="display-4 text-uppercase fw-bold">Jiu Jitsu Source</h1>', html)
     
     def test_User_edit_training_note(self):
         '''can a logged in user edit a training note?'''
@@ -121,7 +121,7 @@ class RoutesTestCase(TestCase):
         newResp = c.post(f'/user/notes/{note.id}/edit', data={"content": "edited content"}, follow_redirects=True)
         html = newResp.get_data(as_text=True)
         self.assertEqual(newResp.status_code, 200)
-        self.assertIn('<div class="alert alert-success flashes">Edited note!</div>', html)
+        self.assertIn('<div class="alert alert-secondary flashes">Edited note!</div>', html)
         self.assertIn('<p class="card-text">edited content</p>', html)
 
     def test_techniques_page(self):
@@ -146,7 +146,7 @@ class RoutesTestCase(TestCase):
             resp = c.post('/techniques/sdfsd/videoTitle/channelTitle', follow_redirects=True)
             html = resp.get_data(as_text=True)
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('<h1 class="display-1">Jiu Jitsu Source</h1>', html)
+            self.assertIn('<h1 class="display-4 text-uppercase fw-bold">Jiu Jitsu Source</h1>', html)
 
     def test_User_add_technique(self):
         '''can a logged in user add a technique?'''
@@ -172,7 +172,7 @@ class RoutesTestCase(TestCase):
             resp = c.post('/techniques/1/delete', follow_redirects=True)
             html = resp.get_data(as_text=True)
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('<h1 class="display-1">Jiu Jitsu Source</h1>', html)
+            self.assertIn('<h1 class="display-4 text-uppercase fw-bold">Jiu Jitsu Source</h1>', html)
 
     def test_User_delete_technique(self):
         '''can a logged in user delete a technique?'''
@@ -185,7 +185,7 @@ class RoutesTestCase(TestCase):
             resp1 = c.post(f'/techniques/{technique.id}/delete', follow_redirects=True)
             html = resp1.get_data(as_text=True)
             self.assertEqual(resp1.status_code, 200)
-            self.assertIn('<div class="alert alert-success flashes">Deleted technique!</div>', html)
+            self.assertIn('<div class="alert alert-secondary flashes">Deleted technique!</div>', html)
             self.assertNotIn('src="https://www.youtube.com/embed/sdfsd', html)
 
     def test_nonUser_add_technique_note(self):
@@ -200,7 +200,7 @@ class RoutesTestCase(TestCase):
             resp = c.get('/techniques/1/addNote', follow_redirects=True)
             html = resp.get_data(as_text=True)
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('<h1 class="display-1">Jiu Jitsu Source</h1>', html)
+            self.assertIn('<h1 class="display-4 text-uppercase fw-bold">Jiu Jitsu Source</h1>', html)
             
 
     def test_User_add_technique_note(self):
@@ -214,5 +214,5 @@ class RoutesTestCase(TestCase):
             resp1 = c.post(f'/techniques/{technique.id}/addNote', data={"video_note": "great video!"}, follow_redirects=True)
             html = resp1.get_data(as_text=True)
             self.assertEqual(resp1.status_code, 200)
-            self.assertIn('<div class="alert alert-success flashes">Edited note!</div>', html)
+            self.assertIn('<div class="alert alert-secondary flashes">Edited note!</div>', html)
             self.assertIn('<p class="card-text">great video!</p>', html)
