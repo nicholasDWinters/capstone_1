@@ -7,11 +7,12 @@ import pdb
 import requests
 import os
 
-# API key can be obtained from YouTube Data API website, and SECRET KEY is in relation to session; create both of these
 from techniques import techDict
-# was unable to import secrets during the deployment to heroku, so commented out
 
-# from secrets import API_KEY, SECRET_KEY
+# API key can be obtained from YouTube Data API website, and SECRET KEY is in relation to session; create both of these
+
+# was unable to import secrets during the deployment to heroku, so comment out that line when pushing to heroku
+from secrets import API_KEY, SECRET_KEY
 from models import db, connect_db, User, Technique, Training_Note
 from forms import UserAddForm, LoginForm, TrainingNoteForm, EditTrainingNoteForm, VideoNoteForm
 
@@ -19,19 +20,19 @@ CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
-# because heroku had issues recognizing import of secrets.py, had to just set the environment varialbe in heroku and then find it and set a variable for use in our API search. See commented out lined below.
-API_KEY = os.environ.get('API_KEY')
-# app.config['API_KEY'] = os.environ.get('API_KEY', API_KEY)
-# app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', SECRET_KEY)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+# because heroku had issues recognizing import of secrets.py, had to just set the environment variables in heroku and then find it and set a variable for use in our API search. See commented out lined below. When pushing to heroku, switch out the following two lines.
 
-# postgres doesn't work correctly with heroku anymore, so in the environment variable, had to make sure to change to postgresql
-uri = os.environ.get("DATABASE_URL")  
-if uri.startswith("postgres://"):
-    uri = uri.replace("postgres://", "postgresql://", 1)
+# API_KEY = os.environ.get('API_KEY')
+# app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.config['API_KEY'] = os.environ.get('API_KEY', API_KEY)
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', SECRET_KEY)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = (uri)
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL",'postgresql:///jiu_jitsu_source')
+# postgres doesn't work correctly with heroku anymore, so in the environment variable, had to make sure to change to postgresql, uncomment these lines and comment out the app.config database line when pushing to heroku
+# uri = os.environ.get("DATABASE_URL")  
+# if uri.startswith("postgres://"):
+#     uri = uri.replace("postgres://", "postgresql://", 1)
+# app.config['SQLALCHEMY_DATABASE_URI'] = (uri)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL",'postgresql:///jiu_jitsu_source')
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
@@ -39,7 +40,8 @@ app.config['SQLALCHEMY_ECHO'] = True
 debug = DebugToolbarExtension(app)
 
 connect_db(app)
-# db.create_all()
+# when pushing to heroku, make sure db.createall is commented out
+db.create_all()
 
 ##############################################################################
 # User signup/login/logout
