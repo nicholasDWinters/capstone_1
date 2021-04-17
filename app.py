@@ -21,15 +21,15 @@ app.config['API_KEY'] = os.environ.get('API_KEY')
 # app.config['API_KEY'] = os.environ.get('API_KEY', API_KEY)
 # app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', SECRET_KEY)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = (os.environ.get('DATABASE_URL'))
-# app.config['SQLALCHEMY_DATABASE_URI'] = (os.environ.get('DATABASE_URL','postgresql:///jiu_jitsu_source'))
+
+app.config['SQLALCHEMY_DATABASE_URI'] = (os.environ.get('DATABASE_URL','postgresql:///jiu_jitsu_source'))
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
 debug = DebugToolbarExtension(app)
 
-# connect_db(app)
+connect_db(app)
 # db.create_all()
 
 ##############################################################################
