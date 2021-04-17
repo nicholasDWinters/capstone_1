@@ -9,7 +9,7 @@ import os
 
 # API key can be obtained from YouTube Data API website, and SECRET KEY is in relation to session; create both of these
 from techniques import techDict
-from secrets import API_KEY, SECRET_KEY
+# from secrets import API_KEY, SECRET_KEY
 from models import db, connect_db, User, Technique, Training_Note
 from forms import UserAddForm, LoginForm, TrainingNoteForm, EditTrainingNoteForm, VideoNoteForm
 
