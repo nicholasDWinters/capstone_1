@@ -17,7 +17,7 @@ CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
-app.config['API_KEY'] = os.environ.get('API_KEY')
+API_KEY = os.environ.get('API_KEY')
 # app.config['API_KEY'] = os.environ.get('API_KEY', API_KEY)
 # app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', SECRET_KEY)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
