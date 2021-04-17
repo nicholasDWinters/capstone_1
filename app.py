@@ -9,7 +9,7 @@ import os
 
 # API key can be obtained from YouTube Data API website, and SECRET KEY is in relation to session; create both of these
 from techniques import techDict
-from secrets import api_key, secret_key
+from secrets import API_KEY, SECRET_KEY
 from models import db, connect_db, User, Technique, Training_Note
 from forms import UserAddForm, LoginForm, TrainingNoteForm, EditTrainingNoteForm, VideoNoteForm
 
@@ -17,8 +17,8 @@ CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
-app.config['API_KEY'] = os.environ.get('API_KEY', api_key)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', secret_key)
+app.config['API_KEY'] = os.environ.get('API_KEY', API_KEY)
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', SECRET_KEY)
 app.config['SQLALCHEMY_DATABASE_URI'] = (os.environ.get('DATABASE_URL','postgresql:///jiu_jitsu_source'))
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
