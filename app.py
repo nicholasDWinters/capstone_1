@@ -9,6 +9,7 @@ import os
 
 # API key can be obtained from YouTube Data API website, and SECRET KEY is in relation to session; create both of these
 from techniques import techDict
+# was unable to import secrets during the deployment to heroku, so commented out
 # from secrets import API_KEY, SECRET_KEY
 from models import db, connect_db, User, Technique, Training_Note
 from forms import UserAddForm, LoginForm, TrainingNoteForm, EditTrainingNoteForm, VideoNoteForm
@@ -17,12 +18,14 @@ CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
+# because heroku had issues recognizing import of secrets.py, had to just set the environment varialbe in heroku and then find it and set a variable for use in our API search. See commented out lined below.
 API_KEY = os.environ.get('API_KEY')
 # app.config['API_KEY'] = os.environ.get('API_KEY', API_KEY)
 # app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', SECRET_KEY)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
-uri = os.environ.get("DATABASE_URL")  # or other relevant config var
+# postgres doesn't work correctly with heroku anymore, so in the environment variable, had to make sure to change to postgresql
+uri = os.environ.get("DATABASE_URL")  
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
 
