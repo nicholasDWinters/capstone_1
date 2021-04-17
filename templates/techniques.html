@@ -3,6 +3,20 @@
 {%block content%}
 <div class="row d-flex flex-lg-row-reverse">
     <div class="col-1"></div>
+
+    <div class="col-lg-5 mt-4">
+        <h2 class="mb-4">Search for Techniques</h2>
+        <form class="d-flex" id="searchForm">
+            <input class="form-control me-2" type="search" placeholder="Search Techniques" aria-label="Search"
+                id="search">
+            <button class="btn btn-dark btn-lg homeBtn" type="submit">Search</button>
+        </form>
+        <div id="errors"></div>
+        <h3 id="searchTermHeading" class="text-capitalize"></h3>
+
+        <div id="videosDiv"></div>
+
+    </div>
     <div class="col-lg-3 mt-4">
         <h2 class="mb-4">Choose a Technique</h2>
         <div class="d-flex align-items-start">
@@ -58,23 +72,6 @@
 
             </div>
         </div>
-    </div>
-    <div class="col-lg-5 mt-4">
-        <h2 class="mb-4">Search for Techniques</h2>
-        <form class="d-flex" id="searchForm">
-            <input class="form-control me-2" type="search" placeholder="Search Techniques" aria-label="Search"
-                id="search">
-            <button class="btn btn-dark btn-lg homeBtn" type="submit">Search</button>
-        </form>
-        <div id="errors"></div>
-        <h3 id="searchTermHeading" class="text-capitalize"></h3>
-
-
-
-        <div id="videosDiv"></div>
-
-
-
     </div>
 
 </div>
