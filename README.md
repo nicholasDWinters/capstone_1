@@ -3,7 +3,7 @@
 https://jiu-jitsu-source.herokuapp.com/
 
 
-#### In jiu jitsu, so much information is learned in each training session, that it can be hard to remember and keep track of it all. Keeping notes on sessions can be helpful to remember what happened on a given day. It's also a very common practice to look up technique videos on YouTube to learn about a given technique. 
+### In jiu jitsu, so much information is learned in each training session, that it can be hard to remember and keep track of it all. Keeping notes on sessions can be helpful to remember what happened on a given day. It's also a very common practice to look up technique videos on YouTube to learn about a given technique. 
 
 **Jiu Jitsu Source** was designed to combine all of these common practices into one app, where jiu jitsu athletes can further their understanding of jiu jitsu. After registration, users are redirected to their home page, where they can take detailed notes of their training sessions, search for technique videos, and take notes on their saved videos. 
 
