@@ -15,4 +15,4 @@ The app uses 3 models: User, Training Note, and Technique. The User model saves 
 
 Bootstrap was used for its minimalist design choices, easy styling of buttons and other elements, and for row/column functionality. Flash messages were implemented to help users identify when an action has worked correctly. I used WTForms for any forms in the app, mainly for easy to use validators. 
 
-The main technologies used were Python, Flask, SQLAlchemy, and a little bit of Javascript to update the UI.
+The main technologies used were Python, Flask, PostgreSQL, SQLAlchemy, and a little bit of Javascript to update the UI.
