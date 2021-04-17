@@ -28,8 +28,8 @@ app.config['SQLALCHEMY_ECHO'] = True
 
 debug = DebugToolbarExtension(app)
 
-connect_db(app)
-db.create_all()
+# connect_db(app)
+# db.create_all()
 
 ##############################################################################
 # User signup/login/logout
